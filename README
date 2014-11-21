@@ -1,0 +1,11 @@
+Internet Checksum
+
+- inet_chksum(data, checksum)
+    - inputs: data
+    - outputs: checksum
+- receiver(data, checksum, ok)
+    - inputs: data, checksum
+    - outputs: ok
+- sender(data, out)
+    - inputs: data
+    - outputs: out
