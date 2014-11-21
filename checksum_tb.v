@@ -1,11 +1,11 @@
 `timescale 1 ns / 1 ns
 
-module inet_chksum_tb;
+module checksum_tb;
 
 reg [31:0] data;
 wire [15:0] checksum;
 
-inet_chksum DUT(data, checksum);
+checksum DUT(data, checksum);
 
 /* Clock */
 reg clk;

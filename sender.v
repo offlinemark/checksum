@@ -8,7 +8,7 @@ output [47:0] out;
 
 wire [15:0] calculated;
 
-inet_chksum C(data, calculated);
+checksum C(data, calculated);
 
 assign out = {data, calculated};
 

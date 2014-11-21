@@ -1,6 +1,6 @@
 `timescale 1 ns / 1 ns
 
-module inet_chksum(data, checksum);
+module checksum(data, checksum);
 
 input [31:0] data;
 output reg [15:0] checksum;
