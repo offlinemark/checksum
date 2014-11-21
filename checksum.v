@@ -3,21 +3,32 @@
 module checksum(data, checksum);
 
 input [31:0] data;
-output reg [15:0] checksum;
+output [15:0] checksum;
 
-reg [31:0] word1, word2, sum;
+wire [15:0] ones_sum;
 
-always @(data)
+ones_comp_sum S(data[31:16], data[15:0], ones_sum);
+
+assign checksum = ~ones_sum;
+
+endmodule
+
+
+module ones_comp_sum(a, b, sum);
+
+input [15:0] a, b;
+output reg [15:0] sum;
+
+reg [31:0] sum32;
+
+always @(a or b)
 begin
-    word1 = {{16{1'b0}}, data[31:16]};
-    word2 = {{16{1'b0}}, data[15:0]};
-    sum = word1 + word2;
-    if (sum & 32'hffff0000) // check for overflow
-    begin
-        sum = sum & 32'h0000ffff;
+    sum32 = a + b;
+    if (sum32 & 32'hffff0000) begin  // check for overflow
+        sum = sum32;
         sum = sum + 1;
-    end
-    checksum = ~sum;
+    end else
+        sum = sum32;
 end
 
 endmodule

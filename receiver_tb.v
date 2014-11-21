@@ -2,11 +2,10 @@
 
 module receiver_tb;
 
-reg [31:0] data;
-reg [15:0] checksum;
+reg [47:0] data;
 wire ok;
 
-receiver DUT(data, checksum, ok);
+receiver DUT(data, ok);
 
 /* Clock */
 reg clk;
@@ -14,25 +13,28 @@ always
     #10 clk = ~clk;
 
 always @(posedge clk)
-    $display("%t:\tdata\t\t%b\n\tchecksum\t%b\n\tok\t\t%b\n", $time, data, checksum, ok);
+    $display("%t:\tdata\t%h\n\tok\t%b\n", $time, data, ok);
 
 initial
 begin
     $timeformat(-9, 0, " ns", 2);
     clk = 0;
     data = 0;
-    checksum = 0;
 
     @(negedge clk)
-    data =  32'b10011101001011011100001111010101;
-    checksum = 16'b1001111011111100;
+    data = 48'b100111010010110111000011110101011001111011111100;
 
     @(negedge clk)
-    checksum = 16'b1001111011111101; // 1 bit off
+    data = 48'b100111010010110111000011110101011001111011111101;
+
+    @(negedge clk)
+    data = 48'b100111010010110111100111110101011001111011111100;
+
+    @(negedge clk)
+    data = 48'b100111010010110111000011110101011001111011111100;
 
     @(negedge clk)
     data = 0;
-    checksum = 0;
 
     $finish;
 end
