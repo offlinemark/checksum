@@ -1,11 +1,7 @@
-Internet Checksum
+# IPv4 Header Checksum
 
-- inet_chksum(data, checksum)
-    - inputs: data
-    - outputs: checksum
-- receiver(data, checksum, ok)
-    - inputs: data, checksum
-    - outputs: ok
-- sender(data, out)
-    - inputs: data
-    - outputs: out
+This repository contains a very basic Verilog implementation of the
+[IPv4 Header Checksum](http://en.wikipedia.org/wiki/IPv4_header_checksum),
+used for limited packet error detection at the Internet layer.
+
+Requires iverilog for compilation and simulation.
